@@ -2,4 +2,4 @@
 # defaults file for container-prometheus
 VAR_PROMETHEUS_DIR: /opt/prometheus
 VAR_PROMETHEUS_URL: prometheus.example.com
-VAR_NODE_EXPORTER_SERVERS: [server01:9100, server02:9100]
+VAR_NODE_EXPORTER_SERVERS: ['server01:9100', 'server02:9100']

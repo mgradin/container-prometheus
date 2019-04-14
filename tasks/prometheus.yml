@@ -1,0 +1,29 @@
+---
+- name: Create prometheus directory
+  file: 
+    path: "{{ VAR_PROMETHEUS_DIR }}"
+    recurse: yes
+    state: directory
+
+- name: Copy prometheus.yml
+  template:
+    src: prometheus.j2
+    dest: "{{ VAR_PROMETHEUS_DIR }}/prometheus.yml"
+    mode: 0644
+
+- name: Start Prometheus container
+  docker_container:
+    name: prometheus 
+    image: prom/prometheus:latest
+    pull: yes
+    state: started
+    labels:
+      traefik.backend=prometheus
+      "traefik.frontend.rule=Host:{{ VAR_PROMETHEUS_URL }}"
+      traefik.port=9090
+      traefik.enable=true
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+    - "{{ VAR_PROMETHEUS_DIR }}/prometheus.yml:/etc/prometheus/prometheus.yml:z"
+    restart_policy: unless-stopped

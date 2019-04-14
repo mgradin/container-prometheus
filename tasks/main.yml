@@ -1,0 +1,4 @@
+---
+# tasks file for container-prometheus
+- import_tasks: prometheus.yml
+  become: true

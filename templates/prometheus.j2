@@ -5,3 +5,9 @@ scrape_configs:
   static_configs:
   - targets:
     - "{{ VAR_CADVISOR_URL }}"
+
+- job_name: 'node_exporter'
+  static_configs:
+  - targets:
+    - "{{ VAR_NODE_EXPORTER_SERVERS }}"
+      
